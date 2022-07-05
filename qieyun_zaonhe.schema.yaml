@@ -57,7 +57,7 @@ speller:
   alphabet: zyxwvutsrqponmlkjihgfedcba
   delimiter: " '"
   algebra:
-    - xform/\d//
+    - xform/\d+$//
 
     - abbrev/^([a-z]).+$/$1/
     - abbrev/^(([ptsck]|ts)h).+$/$1/
@@ -69,10 +69,11 @@ speller:
     - derive/aeh(\d|$)/ah/
 
     # 兼容吳語學堂
-    - derive/^r(\d|$)/er/
-    - abbrev/^nyi(?=[nh]|\d|$)/gni/
+    - derive/^r$/er/
+    - abbrev/^nyi(?=[nh]$|$)/gni/
     - abbrev/^ny(?=[aeou])/gni/
-    - derive/h(\d|$)/q/
+    - derive/ui(?=[nh]$)/u/
+    - derive/h$/q/
 
 translator:
   dictionary: qieyun_zaonhe
