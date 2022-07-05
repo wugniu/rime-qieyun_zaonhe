@@ -1,0 +1,108 @@
+# Rime schema
+# encoding: utf-8
+
+schema:
+  schema_id: qieyun_zaonhe
+  name: 推導上海話
+  version: "2022.07.05"
+  author:
+    - Yuanhao 'Nyoeghau' Chen <nyoeghau@nyoeghau.com>
+  description: |-
+    切韻音系推導上海話：
+    https://nk2028.shn.hk/qieyun-autoderiver/
+    https://github.com/nk2028/qieyun-examples/blob/main/zaonhe.js
+
+    由上述方案自動生成 IPA，並轉爲吳語協會式拼音。
+  dependencies:
+    - luna_pinyin
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [中文, 西文]
+  - name: half_shape
+    states: [全角, 半角]
+  - name: simplification
+    states: [漢字, 汉字]
+  - name: ascii_punct
+    states: [。，, ．，]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - affix_segmentor@luna_pinyin
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - script_translator
+    - script_translator@luna_pinyin
+  filters:
+    - simplifier
+    - uniquifier
+    - reverse_lookup_filter@qieyun_zaonhe_reverse_lookup
+
+speller:
+  alphabet: zyxwvutsrqponmlkjihgfedcba
+  delimiter: " '"
+  algebra:
+    - xform/\d//
+    
+    - abbrev/^([a-z]).+$/$1/
+    - abbrev/^(([ptsck]|ts)h).+$/$1/
+    - abbrev/^(ts).+$/$1/
+    - abbrev/^(ny).+$/$1/
+    - abbrev/^(ng).+$/$1/
+    - abbrev/^(gh).+$/$1/
+
+    - derive/aeh(\d|$)/ah/
+
+    # 兼容吳語學堂
+    - derive/^r(\d|$)/er/
+    - abbrev/^nyi(?=[nh]|\d|$)/gni/
+    - abbrev/^ny(?=[aeou])/gni/
+    - derive/h(\d|$)/q/
+
+
+translator:
+  dictionary: qieyun_zaonhe
+  spelling_hints: 8
+
+luna_pinyin:
+  tag: luna_pinyin
+  dictionary: luna_pinyin
+  prefix: "`"
+  suffix: ";"
+  tips: 〔普通話〕
+  preedit_format:
+    - xform/([nl])v/$1ü/
+    - xform/([nl])ue/$1üe/
+    - xform/([jqxy])v/$1u/
+
+qieyun_zaonhe_reverse_lookup:
+  tags: [luna_pinyin]
+  overwrite_comment: false
+  dictionary: qieyun_zaonhe
+
+punctuator:
+  import_preset: symbols
+
+key_binder:
+  import_preset: default
+
+recognizer:
+  import_preset: default
+  patterns:
+    punct: "^/([0-9]0?|[a-z]+)$"
+    luna_pinyin: "`[a-z]*;?$"

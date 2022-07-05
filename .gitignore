@@ -1,0 +1,6 @@
+cache
+# don't upload scripts yet, using unreleased version of `qieyun-example`
+node_modules
+*.js
+*.json
+*.py
