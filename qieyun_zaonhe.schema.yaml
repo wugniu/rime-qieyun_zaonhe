@@ -58,7 +58,7 @@ speller:
   delimiter: " '"
   algebra:
     - xform/\d//
-    
+
     - abbrev/^([a-z]).+$/$1/
     - abbrev/^(([ptsck]|ts)h).+$/$1/
     - abbrev/^(ts).+$/$1/
@@ -73,7 +73,6 @@ speller:
     - abbrev/^nyi(?=[nh]|\d|$)/gni/
     - abbrev/^ny(?=[aeou])/gni/
     - derive/h(\d|$)/q/
-
 
 translator:
   dictionary: qieyun_zaonhe
