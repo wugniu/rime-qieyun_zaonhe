@@ -1,6 +1,6 @@
 # 推導上海話
 
-℞ edward-martyr/rime-qieyun_zaonhe
+℞ **wugniu/rime-qieyun_zaonhe**
 
 Inspired by <https://github.com/ayaka14732/rime-kyonh>.
 
