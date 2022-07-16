@@ -9,7 +9,7 @@
 
 ---
 name: qieyun_zaonhe
-version: 2022.07.05
+version: "2022.07.06"
 sort: by_weight
 use_preset_vocabulary: true
 import_tables:

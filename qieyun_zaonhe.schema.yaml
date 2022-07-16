@@ -57,7 +57,9 @@ speller:
   alphabet: zyxwvutsrqponmlkjihgfedcba
   delimiter: " '"
   algebra:
-    - xform/\d+$//
+    - xform/5$/x/
+    - xform/[1678]$//
+    - derive/x$//
 
     - abbrev/^([a-z]).+$/$1/
     - abbrev/^(([ptsck]|ts)h).+$/$1/
